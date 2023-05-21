@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dribbble</title>
+    <link rel="shortcut icon" href="fevicon.png" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: gilroy;
+      }
+
+      *::selection {
+        background-color: #e94986;
+        color: #fff;
+      }
+
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        /* background-color: #4e4646; */
+      }
+
+      header {
+        padding-left: 30px;
+        padding-right: 30px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 12vh;
+        width: 100%;
+        /* background-color: #8a5555; */
+      }
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .left .mainlogo {
+        height: 25px;
+        width: 90px;
+        background-size: cover;
+        background-position: center;
+        background-image: url(data:image/png;base64,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);
+        background-color: red;
+        /* font-family: Rage; */
+      }
+
+      .left nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 15px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        /* justify-content: center; */
+      }
+
+      .left nav a {
+        text-decoration: none;
+        color: rgb(136, 131, 131);
+      }
+
+      header .right button {
+        /* margin-left: 5px; */
+        font-size: 16px;
+        padding: 10px 15px;
+        text-transform: capitalize;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: transparent;
+      }
+
+      .right i {
+        font-size: 18px;
+      }
+
+      .right button:nth-child(3) {
+        background-color: #e94986;
+        color: #fff;
+      }
+
+      .center {
+        height: 88vh;
+        width: 100%;
+
+        position: relative;
+      }
+
+      .center video {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .contant {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: #020202a4;
+      }
+
+      .center .topnav {
+        padding-top: 60px;
+        font-size: 15px;
+        text-transform: capitalize;
+        text-align: center;
+        word-spacing: 6px;
+        font-weight: 300;
+      }
+
+      .topnav a {
+        letter-spacing: 1px;
+        font-weight: 500;
+        text-decoration: none;
+        color: white;
+        padding: 17px 20px;
+        border: none;
+        border-radius: 50px;
+        background-color: #08080888;
+        transition: all ease 0.5s;
+      }
+
+      .topnav a:nth-child(1) {
+        background-color: rgba(255, 255, 255, 0.918);
+        color: #080808;
+        font-weight: bold;
+      }
+
+      a:hover {
+        background-color: white;
+        color: #000;
+      }
+
+      .contant h1 {
+        margin-top: 70px;
+        font-weight: 700;
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 34px;
+        color: #fff;
+      }
+
+      .contant p {
+        line-height: 30px;
+        font-weight: 500;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 17px;
+        color: #fff;
+      }
+
+      .contant .searchbar {
+        padding-left: 30px;
+        margin-top: 20px;
+        margin-left: 27%;
+        border-radius: 40px;
+        text-transform: capitalize;
+        font-size: 20px;
+        gap: 20px;
+        color: gray;
+        align-items: center;
+        justify-content: start;
+        display: flex;
+        height: 60px;
+        width: 620px;
+        background-color: #fff;
+      }
+
+      .searchbar p {
+        margin-top: -3px;
+        color: rgb(173, 171, 171);
+      }
+
+      .contant .btmnav {
+        display: flex;
+        gap: 8px;
+        margin-top: 50px;
+        justify-content: center;
+        /* text-align: center; */
+      }
+
+      .contant .btmnav a {
+        /* letter-spacing: 1px; */
+        font-size: 15px;
+        font-weight: 400;
+        text-decoration: none;
+        color: white;
+        padding: 5px 15px;
+        border: none;
+        border-radius: 50px;
+        border: 0.5px solid rgba(255, 255, 255, 0.774);
+        background-color: transparent;
+        /* transition: all ease 0.5s; */
+      }
+
+      .contant .btmnav a:nth-child(1) {
+        border: none;
+        text-transform: capitalize;
+      }
+
+      .contant .btmnav a:hover {
+        border: 2px solid white;
+      }
+
+      .contant .a1 {
+        right: 20px;
+        bottom: 10px;
+        position: absolute;
+        font-size: 17px;
+        color: gray;
+      }
+
+      .page2 {
+        height: 150vh;
+        width: 100%;
+        /* text-align: center; */
+        /* background-color: #e94986; */
+      }
+
+      .element {
+        padding-left: 20px;
+        display: inline-block;
+        /* padding-top: 30px; */
+      }
+
+      .page2 .elem {
+        /* padding: 30px; */
+        display: inline-block;
+        cursor: pointer;
+        margin-top: 40px;
+        margin-left: 20px;
+        border-radius: 10px;
+        height: 220px;
+        width: 280px;
+        position: relative;
+        overflow: hidden;
+        /* background-color: #b43636; */
+      }
+
+      .elem img {
+        /* padding: 20px; */
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .page2 .cover {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 25px;
+        transition: all ease 0.5s;
+        position: absolute;
+        bottom: -50%;
+        height: 50%;
+        width: 100%;
+        background: linear-gradient(transparent, rgb(0, 0, 0));
+      }
+
+      .elem:hover .cover {
+        bottom: 0px;
+      }
+
+      .cover h2 {
+        font-size: 18px;
+        color: #fff;
+        text-transform: capitalize;
+      }
+
+      .cover .icon {
+        display: flex;
+        gap: 8px;
+        font-size: 18px;
+        color: rgb(182, 180, 180);
+        /* background-color: #fff; */
+      }
+
+      .element .bottom {
+        margin-left: 22px;
+        text-transform: capitalize;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        height: 40px;
+        width: 280px;
+        /* background-color: #b61212; */
+      }
+
+      .element .bottom h5 {
+        background-color: rgb(179, 175, 175);
+        padding: 1px 6px;
+      }
+      .page3{
+        /* text-align: center; */
+        height: 100vh;
+        width: 100%;
+        /* background-color: blueviolet; */
+      }
+      .page3 button{
+          cursor: pointer;
+
+        margin-top: 20px;
+     padding: 9px 35px;
+     font-size: 16px;
+     font-weight: 500;
+     border-radius: 10px;
+     border: none;
+     color: #e94986;
+     background-color: transparent;
+      }
+.page3 button:nth-child(1){
+  margin-left: 40%;
+  color: #fff;
+background-color: #e94986;
+}
+.page3 footer{
+  display: flex;
+  margin-top: 40px;
+  height: 530px;
+  width: 100%;
+  /* background-color:#FAFAFB; */
+}
+footer .left{
+  display: block;
+  position: relative;
+  height: 400px;
+  width: 25%;
+  /* background-color:#e94986 ; */
+}
+footer .left img{
+    cursor: pointer;
+
+  height: 40%;
+  /* margin-left: -110px; */
+  /* position: absolute; */
+}
+footer .left p{
+  font-size: 14px;
+  color: gray;
+  margin-left: 60px;
+  text-align: left;
+  width: 70%;
+}
+footer .icons{
+  padding-left: 45px;
+}
+footer .left i{
+  
+  font-weight: 600;
+  margin-left: 12px;
+  font-size: 23px;
+  color: #080808;
+  transition: .2s;
+}
+
+footer .left i:hover{
+  /* scale: 1.3px; */
+  color: #e94986;
+  cursor: pointer;
+  rotate: 45deg;
+}
+
+
+footer .second{
+  height: 400px;
+  width: 15%;
+  
+  /* background-color: blueviolet; */
+}
+footer .second h4{
+  color: #181717;
+  font-size: 15px;
+  margin-top:70px ;
+}
+footer .second p{
+    cursor: pointer;
+
+  color: gray;
+  font-size: 14px;
+  padding-top: 15px;
+}
+
+footer .three{
+  height: 400px;
+  width: 15%;
+  /* background-color: rgb(189, 43, 111); */
+}
+footer .three h4{
+  color: #181717;
+  font-size: 15px;
+  margin-top:70px ;
+}
+footer .three h5{
+  padding-top: 10px;
+}
+footer .three p{
+  cursor: pointer;
+  color: gray;
+  font-size: 14px;
+  padding-top: 15px;
+  padding-bottom: 4px;
+}
+.bottomlast{
+  margin-left: 5%;
+  border-top:
+  1px solid gray ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  width: 90%;
+  font-size: 14px;
+  /* padding: 40px; */
+  color: gray;
+  /* background-color: #e94986; */
+}
+.bottomlast p img{
+  margin-bottom: -5px;
+  height: 20px;
+}
+
+
+
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      <header>
+        <div class="left">
+          <div class="mainlogo"></div>
+          <nav>
+            <a href="">inspiration</a>
+            <a href="">find work</a>
+            <a href="">learn design</a>
+            <a href="">go pro</a>
+            <a href="">hire designer</a>
+          </nav>
+        </div>
+        <div class="right">
+          <i class="ri-search-line"></i>
+          <button>singIn</button>
+          <button>singUp</button>
+        </div>
+      </header>
+      <div class="center">
+        <video
+          autoplay
+          loop
+          muted
+          src="https://cdn.dribbble.com/uploads/39421/original/963b4f8739cbdf86ca3f3a23245efd18.mp4?1657824985"
+        ></video>
+        <div class="contant">
+          <div class="topnav">
+            <a href="">discover</a>
+            <a href="">animation</a>
+            <a href="">branding</a>
+            <a href="">illustration</a>
+            <a href="">mobile</a>
+            <a href="">print</a>
+            <a href="">product design</a>
+            <a href="">trypography</a>
+            <a href="">web design</a>
+          </div>
+          <h1>
+            Explore the world’s leading <br />
+            design portfolios
+          </h1>
+          <p>
+            Millions of designers and agencies around the world showcase their
+            portfolio work <br />
+            on Dribbble - the home to the world’s best design and creative
+            professionals.
+          </p>
+          <div class="searchbar">
+            <i class="ri-search-line"></i>
+            <p>search...</p>
+          </div>
+          <div class="btmnav">
+            <a href="">tranding searches</a>
+            <a href="">landing page</a>
+            <a href="">iso</a>
+            <a href="">food</a>
+            <a href="">landingpage</a>
+            <a href="">uxdesign</a>
+            <a href="">appdesign</a>
+            <!-- <a href="">uxdesign</a> -->
+          </div>
+          <p class="a1">@glebich</p>
+        </div>
+      </div>
+      <div class="page2">
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6777427/file/original-8cb74f9082a5135c48e11f0121f03fc8.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>zircoin</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>deividas branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">80</i>
+            <i class="ri-eye-fill">5.1k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6781194/file/original-0b2e9bde6f67c664799b4048e76ffa0a.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>vitail code</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>dalius branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">65</i>
+            <i class="ri-eye-fill">7.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6780160/file/original-327d366152cefa65370cb5c76b9b3274.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>family crest</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>srdjan branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">70</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6771917/file/original-3502780919ad5b054e6a053f90d468bb.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>geometric</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>unom branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6778583/file/original-6998b2c0dcc937ca5822586b36517153.jpg?compress=1&crop=0x0-6558x4919&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>zoom</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6772321/file/original-0b2159891eca336dcedf17bbd73d5eca.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>ep-logos</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6762241/file/original-095d639339b42bb2a83ecb0a86440bb7.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>ytech</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6765666/file/still-c481f78ca1d899348665746dea98f493.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>anti odisap</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6767856/file/original-0fe0bca6847355be4456eba65648bf80.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>helping mind</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6767911/file/original-6dbec5f14c9db700d43cf517bf5e4aa5.jpg?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>reponsive logo</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6753585/file/original-e630c2b0a29da8088262a6ad8b48d0dc.jpg?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>wolly app icon</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+        <div class="element">
+          <div class="elem">
+            <img
+              src="https://cdn.dribbble.com/userupload/6766815/file/still-593d262fe9845d7134cf80eddf71b7ef.png?compress=1&resize=320x240&vertical=top"
+              alt=""
+            />
+            <div class="cover">
+              <h2>trawel web tamplate</h2>
+              <div class="icon">
+                <div><i class="ri-folder-add-fill"></i></div>
+                <div><i class="ri-heart-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <p>lepisov branding</p>
+            <h5>pro</h5>
+            <i class="ri-heart-fill">75</i>
+            <i class="ri-eye-fill">5.6k</i>
+          </div>
+        </div>
+      </div>
+      <div class="page3">
+        <button>signUp to continue</button>
+        <button>or signIn</button>
+        <footer>
+          <div class="left">
+            <img src="data:image/png;base64,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" alt="">
+            <p>Dribbble is the world’s leading community for creatives to share, grow, and get hired.</p> <br>
+            <br>
+            <div class="icons">
+              <i class="ri-dribbble-fill"></i>
+            <i class="ri-twitter-line"></i>
+            <i class="ri-facebook-box-line"></i>
+            <i class="ri-instagram-line"></i>
+            <i class="ri-pinterest-line"></i>
+            </div>
+          </div>
+          <div class="second">
+            <h4>For designers</h4>
+            <p>Go Pro</p>
+            <p>Explore design work</p>
+            <p>Design blog</p>
+            <p>Overtime podcast</p>
+            <p>Playoffs</p>
+            <p>Code of conduct</p>
+
+          </div>
+          <div class="three">
+            <h4>Hire designers</h4>
+            <p>Hire designers</p>
+            <p>Post a freelance project</p>
+            <p>Search for designers</p>
+            <h5>Brands</h5>
+            <p>Advertise with us</p>
+
+          </div>
+          <div class="three">
+            <h4>Company</h4>
+            <p>About</p>
+            <p>Careers</p>
+            <p>Support</p>
+            <p>Media kit</p>
+            <p>Testimonials</p>
+            <p>Terms of service</p>
+            <p>Privacy policy</p>
+
+          </div>
+          <div class="three">
+            <h4>Directories</h4>
+            <p>Design jobs</p>
+            <p>Designers for hire</p>
+            <p>Freelance designers for hire</p>
+            <p>Tags</p>
+            <p>Places</p>
+            <h5>Design assets</h5>
+            <p>Dribbble Marketplace</p>
+            <p>Creative Market</p>
+            <p>Fontspring</p>
+            <p>Font Squirrel</p>
+
+          </div>
+           <div class="three">
+            <h4>Design Resources</h4>
+            <p>Freelancing</p>
+            <p>Design Hiring</p>
+            <p>Design Portfolio</p>
+            <p>Design Education</p>
+            <p>Creative Process</p>
+            <p>Design Industry Trends</p>
+
+          </div>
+        </footer>
+        <div class="bottomlast">
+          <p>&copy; 2023 Dribbble. All Rights Reserved.</p>
+          <p>21,516,636 shots dribbbled <img src="fevicon.png" alt=""></p>
+        </div>
+      </div>
+      
+    </div>
+    
+  </body>
+</html>
